@@ -1,0 +1,32 @@
+Install Instructions
+--------------------
+
+- Set the desired build path for the libraries in make.inc with the BUILDDIR variable
+- Run make at the base of the hrl directory, with a 'nodpx' argument if no datapixx
+  is module is required
+- Add BUILDDIR/build/python to your PYTHONPATH
+- Copy hrlrc from ./misc to your home directory (hide it with a '.' if
+  desired)
+
+Usage Instructions
+------------------
+
+Finding Documentation:
+
+- Start IPython
+- Import HRL: from hrl import *
+- Create and hrl instance: hrl = HRL(...)
+- Examine module documentation: hrl?
+- Access HRL method documentation: hrl.method?
+- Using IPython to interact with an hrl instance can be very helpful
+  while designing an experiment.
+
+Developing an Experiment:
+
+- Create a directory under the experiments folder with your name. Push
+  your experiment every once in a while so that other users can see.
+  Pushing to the repository will be the easiest way for you to move
+  between the datapixx computer and your own computer.
+- My experiment is in experiments/sacha and is a good reference for how
+  to design an experiment with HRL. You may want to copy it as a
+  starting point for your experiment.

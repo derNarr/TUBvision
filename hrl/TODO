@@ -1,0 +1,6 @@
+Tasks:
+- Test gamma with Minolta.
+- Think about setting a range in the gamma table builder.
+
+Features:
+- Add the ability to draw text objects with HRL as well

@@ -1,0 +1,9 @@
+*.pyc
+*.zip
+*.tar
+*.swp
+*.gz
+*DS_Store*
+Icon?
+._*
+build/

@@ -44,10 +44,9 @@ def main():
     flds = ['Luminance']
     args = prsr.parse_args()
     flnm = open('results/' + args.flnm,'w')
-    dct = {}
 
     # Initializations
-    hrl = HRL(wdth,hght,args.lm,dpx=True,ocal=True,rfl=(flnm,flds),fs=True)
+    hrl = HRL(wdth,hght,args.lm,coords=(0,1,0,1),flipcoords=False,dpx=True,ocal=True,rfl=flnm,rhds=flds,fs=True)
 
     sqrwv = lambda x: args.ctst * round((np.sin(2*np.pi*x) + 1)/2) + (0.5 - args.ctst/2)
 
@@ -69,19 +68,19 @@ def main():
 
         ptch1.draw(ppos,pwdth,phght)
         hrl.flip()
-        dct['Luminance'] = hrl.tryReadLuminance(phtm,1,0)
-        hrl.writeResultLine(dct)
+        hrl.rmtx['Luminance'] = hrl.readLuminance(phtm,1,0)
+        hrl.writeResultLine()
 
         pg.time.wait(slptm)
 
         ptch2.draw(ppos,pwdth,phght)
         hrl.flip()
-        dct['Luminance'] = hrl.tryReadLuminance(phtm,1,0)
-        hrl.writeResultLine(dct)
+        hrl.rmtx['Luminance'] = hrl.readLuminance(phtm,1,0)
+        hrl.writeResultLine()
 
         pg.time.wait(slptm)
 
-        if hrl.escapeCheck: break
+        if hrl.checkEscape(): break
 
 # Experiment is over!
     hrl.close()

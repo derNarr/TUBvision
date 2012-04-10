@@ -53,7 +53,7 @@ def main():
         flds = ['Intensity'] \
             + [ 'Luminance' + str(i) for i in range(args.nsmps) ]
 
-    hrl = HRL(wdth,hght,0,dpx=True,ocal=True,rfl=(flnm,flds),gfl=args.tst,fs=True)
+    hrl = HRL(wdth,hght,0,coords=(0,1,0,1),flipcoords=False,dpx=True,ocal=True,rfl=flnm,rhds=flds,lut=args.tst,fs=True)
 
     itss = np.linspace(args.mn,args.mx,args.stps)
     if args.rndm: shuffle(itss)
@@ -61,14 +61,15 @@ def main():
 
     (pwdth,phght) = (wdth*args.sz,hght*args.sz)
     ppos = ((wdth - pwdth)/2,(hght - phght)/2)
+    print pwdth
+    print ppos
+    print phght
 
     done = False
 
-    dct = {}
-
     for its in itss:
 
-        dct['Intensity'] = its
+        hrl.rmtx['Intensity'] = its
 
         ptch = hrl.newTexture(np.array([[its]]))
         ptch.draw(ppos,(pwdth,phght))
@@ -77,20 +78,20 @@ def main():
         print 'Current Intensity:', its
         smps = []
         for i in range(args.nsmps):
-            smps.append(hrl.tryReadLuminance(5,args.slptm))
+            smps.append(hrl.readLuminance(5,args.slptm))
 
         if args.avg:
             smps = filter(lambda x: x != np.nan,smps)
             smp = np.mean(smps)
-            dct['Luminance'] = smp
+            hrl.rmtx['Luminance'] = smp
 
         else: 
             for i in range(len(smps)):
-                dct['Luminance' + str(i)] = smps[i]
+                hrl.rmtx['Luminance' + str(i)] = smps[i]
 
-        hrl.writeResultLine(dct)
+        hrl.writeResultLine()
 
-        if hrl.escapeCheck(): break
+        if hrl.checkEscape(): break
 
     # Experiment is over!
     hrl.close()

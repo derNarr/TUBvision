@@ -138,10 +138,6 @@ def createCircleDL(txid,wdth,hght,coords):
     xtrns = (r + l)/2
     ytrns = (t + b)/2
 
-    print "Corrections!"
-    print xstch,ystch
-    print xtrns,ytrns
-    
     glBegin(GL_TRIANGLE_FAN)
 
     for ang in np.linspace(0,2*np.pi,360):

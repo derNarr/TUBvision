@@ -48,7 +48,7 @@ def main():
     args = prsr.parse_args()
     flnm = open('results/' + args.flnm,'w')
 
-    hrl = HRL(wdth,hght,0,dpx=True,ocal=True,rfl=(flnm,flds),fs=True)
+    hrl = HRL(wdth,hght,0,coords=(0,1,0,1),flipcoords=False,dpx=True,ocal=True,rfl=flnm,rhds=flds,fs=True)
     # Initializations
 
     ptch = hrl.newTexture(np.array([[args.lm]]))
@@ -67,11 +67,10 @@ def main():
 
     def opticalRead(its,phtm):
         print 'Current Intensity:', its
-        lm = hrl.tryReadLuminance(phtm,1,0)
-        dct = {}
-        dct['Intensity'] = its
-        dct['Luminance'] = lm
-        hrl.writeResultLine(dct)
+        lm = hrl.readLuminance(phtm,1,0)
+        hrl.rmtx['Intensity'] = its
+        hrl.rmtx['Luminance'] = lm
+        hrl.writeResultLine()
 
     for (its,tst) in cycl * args.ncyc:
 
@@ -85,7 +84,7 @@ def main():
             prcs = Process(target=opticalRead,args=(its,fl,phtm))
             prcs.start()
 
-        if hrl.escapeCheck(): break
+        if hrl.checkEscape(): break
 
     # Experiment is over!
     hrl.close

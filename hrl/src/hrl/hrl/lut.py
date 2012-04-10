@@ -3,9 +3,10 @@ import pylab as plt
 
 """
 In order to build a look up table, perform the following steps:
-    filesToTable(filenames) (produces 'average.txt')
-    gprocessTable() (takes 'average.txt' and produces 'curve.txt')
-    interpLUT() (takes 'curve.txt' and produces 'LUT.txt')
+    filesToTable(filenames) -> (produces 'average.txt')
+    gprocessTable() -> (takes 'average.txt' and produces 'curve.txt')
+    interpLUT() -> (takes 'curve.txt' and produces 'LUT.txt')
+    LUT.txt can be given to hrl to correct textures at load time.
 
 Each of these functions will save their results to files. The resulting
 fit can be examined by running plotTables() in the same directory.

@@ -36,6 +36,7 @@ def main():
     # Initializations
 
     hrl = HRL(wdth,hght,0,dpx=True,ocal=True,fs=True)
+    hrl = HRL(wdth,hght,0,coords=(0,1,0,1),flipcoords=False,dpx=True,ocal=True,fs=True)
 
     pwdth,phght = int(wdth*args.sz),int(hght*args.sz)
     ppos = ((wdth - pwdth)/2,(hght - phght)/2)
@@ -63,7 +64,7 @@ def main():
 
         pg.time.wait(slptm)
 
-        if hrl.escapeCheck: break
+        if hrl.checkEscape(): break
 
 # Experiment is over!
     hrl.close()

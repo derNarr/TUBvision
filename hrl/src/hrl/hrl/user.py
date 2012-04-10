@@ -79,9 +79,10 @@ class HRL:
     experiment scripts. These features can be activated with the
     appropriate hrl initializaiton arguments. When activated, the
     corresponding HRL instance has the fields dmtx, and rmtx added to
-    it. hrl.dmtx is an iterator over the lines of the design matrix, and
-    rmtx is a dictionary which updates the result matrix file when
-    hrl.writeResultLine() is called.
+    it. hrl.dmtx is an iterator over the lines of the design matrix and
+    can be used for example in a for loop - 'for dsgn in hrl.dmtx:'.
+    hrl.rmtx is a dictionary which is written to the result matrix file
+    when hrl.writeResultLine() is called.
     """
 
     ## Core methods ##
@@ -128,7 +129,7 @@ class HRL:
         -------
 
         close, newTexture, flip, readButton, readLuminance, checkEscape,
-        next, writeResultLine
+        writeResultLine
 
         """
 
@@ -307,7 +308,7 @@ class HRL:
 
     ## File methods ##
 
-    def writeResultLine(self):
+    def writeResultLine(self,dct=None):
         """
         Given an appropriate dicitonary of values, writes the line to
         the result file. The dictionary must include all the names given
@@ -315,8 +316,14 @@ class HRL:
         rhds=['Input','Output'] then dct must have elements dct['Input']
         and dct['Output'].
 
+        By default, hrl uses the dictionary hrl.rmtx, but the dictionary
+        can be given directly if desired.
+
         Parameters
         ----------
         dct : The dictionary of results in the current trial.
         """
-        self._rwtr.writerow(self.rmtx)
+        if dct=None:
+            self._rwtr.writerow(self.rmtx)
+        else:
+            self._rwtr.writerow(dct)
